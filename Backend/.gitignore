@@ -1,0 +1,33 @@
+# 🔧 Java / Spring Boot
+/target/
+*.log
+*.class
+*.jar
+*.war
+*.iml
+*.hprof
+*.DS_Store
+
+# 🧪 Test coverage
+/coverage/
+
+# 🌐 Angular
+/node_modules/
+/dist/
+/out-tsc/
+.angular/
+
+# ⚙️ IDEs & editors
+/.idea/
+/.vscode/
+/*.swpg
+
+# 📦 OS
+Thumbs.db
+.DS_Store
+
+# 🔒 Env files
+.env
+.env.local
+application.properties
+application.yml
