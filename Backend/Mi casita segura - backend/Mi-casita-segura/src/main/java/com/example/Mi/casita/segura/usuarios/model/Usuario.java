@@ -1,0 +1,79 @@
+package com.example.Mi.casita.segura.usuarios.model;
+
+import com.example.Mi.casita.segura.acceso.model.Acceso_QR;
+import com.example.Mi.casita.segura.correspondencia.model.Paquete;
+import com.example.Mi.casita.segura.notificaciones.model.Notificacion;
+import com.example.Mi.casita.segura.pagos.model.Pagos;
+import com.example.Mi.casita.segura.reservas.model.Reserva;
+import com.example.Mi.casita.segura.soporte.model.TicketSoporte;
+import com.example.Mi.casita.segura.visitantes.model.Visitante;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+
+//Representa tabla en base de datos
+@Entity
+//Lombok
+@Data
+public class Usuario {
+
+    @Id
+    @Column(length = 15)
+    private String cui;
+
+    @Column(nullable = false, length = 100)
+    private String nombre;
+
+    @Column(nullable = false, length = 100)
+    private String correoElectronico;
+
+    @Column(nullable = false, length = 100)
+    private String usuario;
+
+    @Column(nullable = false, length = 225)
+    private String contrasena;
+
+    @Column(length = 20)
+    private String telefono;
+
+    @Column(length = 50)
+    private String rol;
+    private LocalDate fechaDeIngreso;
+
+    @Column(nullable = false)
+    private boolean estado;
+    private int numeroCasa;
+
+    // Relación con los visitantes creados por este usuario
+    @OneToMany(mappedBy = "creadoPor", cascade = CascadeType.ALL)
+    private List<Visitante> visitantes;
+
+    // Relación con accesos QR generados por este usuario
+    @OneToMany(mappedBy = "asociado", cascade = CascadeType.ALL)
+    private List<Acceso_QR> acceso_QR;
+
+    // Relación con paquetes ingresados por este usuario
+    @OneToMany(mappedBy = "creadoPor", cascade = CascadeType.ALL)
+    private List<Paquete> paquetes;
+
+    // Relación con notificaciones generadas
+    @OneToMany(mappedBy = "generadoPor", cascade = CascadeType.ALL)
+    private List<Notificacion> notificaciones;
+
+    // Relación con pagos realizados
+    @OneToMany(mappedBy = "creadoPor", cascade = CascadeType.ALL)
+    private List<Pagos> pagos;
+
+    // Relación con reservas hechas
+    @OneToMany(mappedBy = "residente", cascade = CascadeType.ALL)
+    private List<Reserva> reservas;
+
+    // Relación con tickets de soporte creados
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<TicketSoporte> tickets;
+}
